@@ -36,12 +36,17 @@ Partial Class Form1
         Me.PasswordLabel = New System.Windows.Forms.Label()
         Me.UsernameLabel = New System.Windows.Forms.Label()
         Me.OutputGroupBox = New System.Windows.Forms.GroupBox()
-        Me.EventLogging = New System.Diagnostics.EventLog()
         Me.OutputBox = New System.Windows.Forms.RichTextBox()
+        Me.EventLogging = New System.Diagnostics.EventLog()
+        Me.FileportalDataSet1 = New FilePortalSync2.fileportalDataSet()
+        Me.FiledataTableAdapter1 = New FilePortalSync2.fileportalDataSetTableAdapters.filedataTableAdapter()
+        Me.TableAdapterManager1 = New FilePortalSync2.fileportalDataSetTableAdapters.TableAdapterManager()
+        Me.AssignmentTableAdapter1 = New FilePortalSync2.fileportalDataSetTableAdapters.assignmentTableAdapter()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SetupGroupBox.SuspendLayout()
         Me.OutputGroupBox.SuspendLayout()
         CType(Me.EventLogging, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FileportalDataSet1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -189,13 +194,6 @@ Partial Class Form1
         Me.OutputGroupBox.TabStop = False
         Me.OutputGroupBox.Text = "Output"
         '
-        'EventLogging
-        '
-        Me.EventLogging.EnableRaisingEvents = True
-        Me.EventLogging.Log = "HandinPortal"
-        Me.EventLogging.Source = "FileportalSync2"
-        Me.EventLogging.SynchronizingObject = Me
-        '
         'OutputBox
         '
         Me.OutputBox.Dock = System.Windows.Forms.DockStyle.Fill
@@ -204,6 +202,33 @@ Partial Class Form1
         Me.OutputBox.Size = New System.Drawing.Size(1058, 383)
         Me.OutputBox.TabIndex = 0
         Me.OutputBox.Text = ""
+        '
+        'EventLogging
+        '
+        Me.EventLogging.EnableRaisingEvents = True
+        Me.EventLogging.Log = "HandinPortal"
+        Me.EventLogging.Source = "FileportalSync2"
+        Me.EventLogging.SynchronizingObject = Me
+        '
+        'FileportalDataSet1
+        '
+        Me.FileportalDataSet1.DataSetName = "fileportalDataSet"
+        Me.FileportalDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'FiledataTableAdapter1
+        '
+        Me.FiledataTableAdapter1.ClearBeforeFill = True
+        '
+        'TableAdapterManager1
+        '
+        Me.TableAdapterManager1.assignmentTableAdapter = Me.AssignmentTableAdapter1
+        Me.TableAdapterManager1.BackupDataSetBeforeUpdate = False
+        Me.TableAdapterManager1.filedataTableAdapter = Me.FiledataTableAdapter1
+        Me.TableAdapterManager1.UpdateOrder = FilePortalSync2.fileportalDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete
+        '
+        'AssignmentTableAdapter1
+        '
+        Me.AssignmentTableAdapter1.ClearBeforeFill = True
         '
         'Form1
         '
@@ -218,6 +243,7 @@ Partial Class Form1
         Me.SetupGroupBox.PerformLayout()
         Me.OutputGroupBox.ResumeLayout(False)
         CType(Me.EventLogging, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FileportalDataSet1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -236,6 +262,10 @@ Partial Class Form1
     Friend WithEvents LocalInspectButton As Button
     Friend WithEvents LibraryInspectButton As Button
     Friend WithEvents LocalShareBox As TextBox
-    Friend WithEvents EventLogging As EventLog
     Friend WithEvents OutputBox As RichTextBox
+    Friend WithEvents EventLogging As EventLog
+    Friend WithEvents FileportalDataSet1 As fileportalDataSet
+    Friend WithEvents FiledataTableAdapter1 As fileportalDataSetTableAdapters.filedataTableAdapter
+    Friend WithEvents TableAdapterManager1 As fileportalDataSetTableAdapters.TableAdapterManager
+    Friend WithEvents AssignmentTableAdapter1 As fileportalDataSetTableAdapters.assignmentTableAdapter
 End Class
