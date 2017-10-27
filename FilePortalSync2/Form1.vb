@@ -11,7 +11,6 @@ Public Class Form1
     Dim portalUsername As String
     Dim portalPassword As SecureString
 
-
     Public Delegate Sub LogDelegate(ByVal status As String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -164,7 +163,7 @@ Public Class Form1
 
                 myEventLog.WriteEntry(String.Format("{1}{0}{2}{0}{3}{0}{4} Deleted", vbTab, user, assignmentName, origFN, copyFN))
             Catch ex As Exception
-                myEventLog.WriteEntry(ex.Message, EventLogEntryType.Error)
+                myEventLog.WriteEntry("On Delete - " & ex.Message, EventLogEntryType.Error)
             Finally
                 FileportalDataSet1.AcceptChanges()
             End Try
@@ -223,7 +222,5 @@ Public Class Form1
 
     End Sub
 #End Region
-
-
 
 End Class

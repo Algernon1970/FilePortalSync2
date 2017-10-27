@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.SetupGroupBox = New System.Windows.Forms.GroupBox()
         Me.LocalInspectButton = New System.Windows.Forms.Button()
@@ -37,7 +38,6 @@ Partial Class Form1
         Me.UsernameLabel = New System.Windows.Forms.Label()
         Me.OutputGroupBox = New System.Windows.Forms.GroupBox()
         Me.OutputBox = New System.Windows.Forms.RichTextBox()
-        Me.EventLogging = New System.Diagnostics.EventLog()
         Me.FileportalDataSet1 = New FilePortalSync2.fileportalDataSet()
         Me.FiledataTableAdapter1 = New FilePortalSync2.fileportalDataSetTableAdapters.filedataTableAdapter()
         Me.TableAdapterManager1 = New FilePortalSync2.fileportalDataSetTableAdapters.TableAdapterManager()
@@ -45,7 +45,6 @@ Partial Class Form1
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SetupGroupBox.SuspendLayout()
         Me.OutputGroupBox.SuspendLayout()
-        CType(Me.EventLogging, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FileportalDataSet1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -203,13 +202,6 @@ Partial Class Form1
         Me.OutputBox.TabIndex = 0
         Me.OutputBox.Text = ""
         '
-        'EventLogging
-        '
-        Me.EventLogging.EnableRaisingEvents = True
-        Me.EventLogging.Log = "HandinPortal"
-        Me.EventLogging.Source = "FileportalSync2"
-        Me.EventLogging.SynchronizingObject = Me
-        '
         'FileportalDataSet1
         '
         Me.FileportalDataSet1.DataSetName = "fileportalDataSet"
@@ -236,13 +228,13 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1070, 508)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
         Me.Text = "FilePortalSync2"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.SetupGroupBox.ResumeLayout(False)
         Me.SetupGroupBox.PerformLayout()
         Me.OutputGroupBox.ResumeLayout(False)
-        CType(Me.EventLogging, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FileportalDataSet1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -263,7 +255,6 @@ Partial Class Form1
     Friend WithEvents LibraryInspectButton As Button
     Friend WithEvents LocalShareBox As TextBox
     Friend WithEvents OutputBox As RichTextBox
-    Friend WithEvents EventLogging As EventLog
     Friend WithEvents FileportalDataSet1 As fileportalDataSet
     Friend WithEvents FiledataTableAdapter1 As fileportalDataSetTableAdapters.filedataTableAdapter
     Friend WithEvents TableAdapterManager1 As fileportalDataSetTableAdapters.TableAdapterManager
