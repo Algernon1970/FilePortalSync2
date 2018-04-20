@@ -1,8 +1,10 @@
 ﻿Imports System.ComponentModel
 Imports System.Diagnostics
 Imports System.IO
+Imports System.Net
 Imports System.Security
 Imports AshbyTools
+Imports Microsoft.SharePoint
 
 Public Class Form1
     Dim cancelled As Boolean = True
@@ -183,6 +185,7 @@ Public Class Form1
                 Dim remoteFile As String = String.Format("{0}{1}", id, fileext)
                 Dim fs As Stream = Nothing
                 FiledataTableAdapter1.setDownloadFlag(False, id)
+
                 Try
                     fs = FileOperations.loadFromSP(remoteFile, LibraryShareBox.Text, "Shares", portalUsername, portalPassword)
                     Using nfs As New FileStream(LocalShareBox.Text & remoteFile, FileMode.Create)
@@ -192,13 +195,24 @@ Public Class Form1
                     FileportalDataSet1.AcceptChanges()
                     myEventLog.WriteEntry(String.Format("{1}{0}{2} Downloaded", vbTab, origFN, remoteFile))
                 Catch ex As Exception
-                    If IsNothing(fs) Then
-                        myEventLog.WriteEntry(ex.Message & " when opening " & remoteFile, EventLogEntryType.Error)
-                    Else
-                        myEventLog.WriteEntry(ex.Message & " when writing to local share " & remoteFile, EventLogEntryType.Error)
-                    End If
-                    FiledataTableAdapter1.setDownloadFlag(False, id)
-                    FileportalDataSet1.AcceptChanges()
+                    Try
+                        fs = FileOperations.loadFromSP(remoteFile, LibraryShareBox.Text, "Shares1", portalUsername, portalPassword)
+                        Using nfs As New FileStream(LocalShareBox.Text & remoteFile, FileMode.Create)
+                            fs.CopyTo(nfs)
+                        End Using
+                        FiledataTableAdapter1.setDownloadReadyFlag(True, id)
+                        FileportalDataSet1.AcceptChanges()
+                        myEventLog.WriteEntry(String.Format("{1}{0}{2} Downloaded", vbTab, origFN, remoteFile))
+                    Catch ex1 As Exception
+                        If IsNothing(fs) Then
+                            myEventLog.WriteEntry(ex1.Message & " when opening " & remoteFile, EventLogEntryType.Error)
+                        Else
+                            myEventLog.WriteEntry(ex1.Message & " when writing to local share " & remoteFile, EventLogEntryType.Error)
+                        End If
+                        FiledataTableAdapter1.setDownloadFlag(False, id)
+                        FileportalDataSet1.AcceptChanges()
+                    End Try
+
                 Finally
                     If IsNothing(fs) Then
                         'failure to Kirts PHP Page.
